@@ -1,7 +1,7 @@
 # TelegramBot-Menu-Mensa
 
 
-- Simple telegram bot server written in python for retrieving the menu of my favorite mensa of University od Padua from their website https://mensamurialdo.it
+- Simple telegram bot server written in python for retrieving the menu of my favorite mensa of University of Padua from their website https://mensamurialdo.it
 - code `bot.py`
 
 # Today's menu

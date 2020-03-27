@@ -18,7 +18,6 @@ bot = telebot.TeleBot(token=bot_token)
 url = "https://mensamurialdo.it/menu-settimanale/"
 html = urlopen(url).read()
 soup = BeautifulSoup(html,'html5lib')
-
 today = date.today().strftime("%Y%m%d")   # example "20200110"
 
 flag = 0
@@ -48,7 +47,6 @@ def send_welcome(message):
 @bot.message_handler(commands=["primi"])
 def send_welcome(message):
     if flag:
-    
         string_to_print = find_string_to_print(0)           # 0 -> primi
                 
         bot.reply_to(message, string_to_print)
@@ -60,10 +58,9 @@ def send_welcome(message):
 @bot.message_handler(commands=["secondi"])
 def send_welcome(message):
     if flag:
-        
         string_to_print = find_string_to_print(1)           # 1 -> secondi
                 
-        bot.reply_to(er forza perche clono la repo da bitbucket e github e quindimessage, string_to_print)
+        bot.reply_to(message, string_to_print)
         
     else:
         bot.reply_to(message, 'mensa chiusa')
@@ -72,7 +69,6 @@ def send_welcome(message):
 @bot.message_handler(commands=["contorni"])
 def send_welcome(message):
     if flag:
-        
         string_to_print = find_string_to_print(2)           # 2 -> contorni/dolci
                 
         bot.reply_to(message, string_to_print)

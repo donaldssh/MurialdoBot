@@ -1,14 +1,16 @@
 # dipendenze:
 # pip install beautifulsoup4
-# pip install urllib
 
-from urllib.request import urlopen
+import requests
 from bs4 import BeautifulSoup
 from datetime import date
 import sys
 
 url = "https://mensamurialdo.it/menu-settimanale/"
-html = urlopen(url).read()
+
+page = requests.get(url)
+html = page.text
+
 soup = BeautifulSoup(html,'html5lib')
 
 today = date.today().strftime("%Y%m%d")   # example "20200110"

@@ -1,9 +1,8 @@
 # API https://github.com/eternnoir/pyTelegramBotAPI
 # dipendenze:
 # pip install beautifulsoup4
-# pip install urllib
 
-from urllib.request import urlopen
+import requests
 from bs4 import BeautifulSoup
 from datetime import date
 
@@ -16,7 +15,10 @@ bot_token = "XXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" # insert your telegr
 bot = telebot.TeleBot(token=bot_token)
 
 url = "https://mensamurialdo.it/menu-settimanale/"
-html = urlopen(url).read()
+
+page = requests.get(url)
+html = page.text
+
 soup = BeautifulSoup(html,'html5lib')
 today = date.today().strftime("%Y%m%d")   # example "20200110"
 
@@ -29,7 +31,6 @@ if soup.find(id=today):   # flag == 0 se la mensa e' chiusa
 
 @bot.message_handler(commands=["start"])
 def send_welcome(message):
-        #bot.reply_to(message, 'Welcome Back')
         markup = types.ReplyKeyboardMarkup(row_width=2)
         itembtn1 = types.KeyboardButton('/primi')
         itembtn2 = types.KeyboardButton('/secondi')
@@ -47,6 +48,7 @@ def send_welcome(message):
 @bot.message_handler(commands=["primi"])
 def send_welcome(message):
     if flag:
+    
         string_to_print = find_string_to_print(0)           # 0 -> primi
                 
         bot.reply_to(message, string_to_print)
@@ -58,6 +60,7 @@ def send_welcome(message):
 @bot.message_handler(commands=["secondi"])
 def send_welcome(message):
     if flag:
+        
         string_to_print = find_string_to_print(1)           # 1 -> secondi
                 
         bot.reply_to(message, string_to_print)
@@ -69,6 +72,7 @@ def send_welcome(message):
 @bot.message_handler(commands=["contorni"])
 def send_welcome(message):
     if flag:
+        
         string_to_print = find_string_to_print(2)           # 2 -> contorni/dolci
                 
         bot.reply_to(message, string_to_print)

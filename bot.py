@@ -1,17 +1,11 @@
-# API https://github.com/eternnoir/pyTelegramBotAPI
-# dipendenze:
-# pip install beautifulsoup4
-
 import requests
 from bs4 import BeautifulSoup
 from datetime import date
-
 import telebot
 from telebot import types
+import sys
 
-import keyboard
-
-bot_token = "XXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" # insert your telegram bot token
+bot_token = sys.argv[1]
 bot = telebot.TeleBot(token=bot_token)
 
 url = "https://mensamurialdo.it/menu-settimanale/"
@@ -23,7 +17,7 @@ soup = BeautifulSoup(html,'html5lib')
 today = date.today().strftime("%Y%m%d")   # example "20200110"
 
 flag = 0
-if soup.find(id=today):   # flag == 0 se la mensa e' chiusa
+if soup.find(id=today):   # flag == 0 mensa is closed
     day = soup.find(id=today)  # find the current day
     menu = day('h3')  # for each day extract the "primo secondo e contorno"
     piatti = day('span') # extract every piatto

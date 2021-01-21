@@ -12,27 +12,26 @@ url = "https://mensamurialdo.it/menu-settimanale/"
 
 page = requests.get(url)
 html = page.text
-
 soup = BeautifulSoup(html, "html5lib")
 
-# example "20200110"
-today = date.today().strftime("%Y%m%d")
+mensa_closed_message = "Mensa chiusa"
 
-# flag == 0 mensa is closed
-flag = 0
-if soup.find(id=today):
 
-    # find the current day
-    day = soup.find(id=today)
+def get_date():
+    return date.today().strftime("%Y%m%d")
 
-    # for each day extract "primo secondo and contorno"
-    menu = day("h3")
 
-    # extract every plates
-    plates = day("span")
+def mensa_is_open():
+    return 1 if soup.find(id=get_date()) else 0
 
-    # flag == 1 mensa is open
-    flag = 1
+
+def get_plates_from_index(i):
+    formatted_plates = ""
+    plates = soup.find(id=get_date()).find_all(class_="col")[i].find_all("span")
+    for plate in plates:
+        formatted_plates += str(plate.text) + "\n"
+
+    return formatted_plates
 
 
 @bot.message_handler(commands=["start"])
@@ -57,41 +56,26 @@ def send_welcome(message):
 
 @bot.message_handler(commands=["primi"])
 def send_welcome(message):
-    if flag:
+    if mensa_is_open():
         bot.reply_to(message, get_plates_from_index(0))
     else:
-        bot.reply_to(message, "mensa chiusa")
+        bot.reply_to(message, mensa_closed_message)
 
 
 @bot.message_handler(commands=["secondi"])
 def send_welcome(message):
-    if flag:
+    if mensa_is_open():
         bot.reply_to(message, get_plates_from_index(1))
     else:
-        bot.reply_to(message, "mensa chiusa")
+        bot.reply_to(message, mensa_closed_message)
 
 
 @bot.message_handler(commands=["contorni"])
 def send_welcome(message):
-    if flag:
+    if mensa_is_open():
         bot.reply_to(message, get_plates_from_index(2))
-
     else:
-        bot.reply_to(message, "mensa chiusa")
-
-
-def get_plates_from_index(i):
-    plate_name = menu[i].contents[0]
-    formatted_plates = plate_name + "\n"
-    start = i * 16
-    end = 16 * (i + 1)
-
-    # 8 kinds of plates
-    for j in range(start, end):
-        plate = plates[j]
-        formatted_plates += plate.contents[0] + "\n"
-
-    return formatted_plates
+        bot.reply_to(message, mensa_closed_message)
 
 
 while True:

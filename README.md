@@ -1,23 +1,26 @@
 ﻿# MurialdoBot
 
-- Simple telegram bot server written in python for retrieving the menu of my favorite mensa of University of Padua from their website https://mensamurialdo.it.
-- run: `python bot.py telegram-bot-token`
+- Simple telegram bot server written in python for retrieving the menu of my favorite mensa of [University of Padua](http://www.unipd.it/) from their website https://mensamurialdo.it.
 
-# Today's menu
+- try it at [@MurialdoBot](https://t.me/MurialdoBot)
 
-  - Simple python script to retrieve from terminal the today's menu.
-  - run: `python today-menu.py`
+## Running the bot
 
-# Installation
+- `pip install -r requirements.txt`
 
-The codes uses:
-* [beautifulsoup4] - HTML parser
-* [telebot] telegram bot API https://github.com/eternnoir/pyTelegramBotAPI
+- Create a telegram bot token with [@Botfather](https://t.me/Botfather)
 
-Install the dependencies:
+- Run `python bot.py telegram-bot-token`, using you token instead of `telegram-bot-token`
 
-```
-$ pip install beautifulsoup4
-$ pip install pyTelegramBotAPI
-$ pip install html5
-```
+## Credits
+The bot uses:
+
+- [telebot](https://github.com/eternnoir/pyTelegramBotAPI)
+- [requests](http://docs.python-requests.org/en/latest/)
+- [beautifulsoup4](http://www.crummy.com/software/BeautifulSoup/)
+
+
+### Today's menu
+Simple python script to retrieve from terminal the today's menu.
+
+- Run `python today-menu.py`
